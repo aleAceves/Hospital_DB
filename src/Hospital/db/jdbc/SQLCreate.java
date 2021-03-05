@@ -24,7 +24,6 @@ public class SQLCreate {
 				+ " speciality TEXT NOT NULL )";
 			
 		
-		Statement stm2= c.createStatement();
 	}
 	catch(IOException ex) {
 		ex.printStackTrace();
