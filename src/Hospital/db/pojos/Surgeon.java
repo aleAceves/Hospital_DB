@@ -1,6 +1,7 @@
 package Hospital.db.pojos;
 
 import java.io.Serializable;
+
 import java.util.*;
 
 public class Surgeon implements Serializable{
@@ -19,6 +20,8 @@ public class Surgeon implements Serializable{
 	
 	
 	// CONSTRUCTORS
+	
+	//With all the variables
 	public Surgeon(Integer id, String name, String surname, String speciality, List<Operation> operations) {
 		super();
 		this.id = id;
@@ -28,6 +31,30 @@ public class Surgeon implements Serializable{
 		this.operations = operations;
 	}
 	
+	//Empty constructor
+	public Surgeon() {
+		super();
+	}
+
+	//Without the id
+	public Surgeon(String name, String surname, String speciality, List<Operation> operations) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.speciality = speciality;
+		this.operations = operations;
+	}
+
+	//Constructor without the list of operations
+	public Surgeon(Integer id, String name, String surname, String speciality) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.speciality = speciality;
+	}
+
+
 
 	//TO STRING METHOD
 	@Override

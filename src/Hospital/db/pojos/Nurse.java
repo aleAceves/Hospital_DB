@@ -24,6 +24,24 @@ public class Nurse implements Serializable{
 		this.surname = surname;
 		this.operations = operations;
 	}
+	
+	
+
+	public Nurse() {
+		super();
+	}
+
+	
+
+	//Constructor without the list
+	public Nurse(Integer id, String name, String surname) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+	}
+
+
 
 	//TOSTRING METHOD
 	@Override

@@ -1,7 +1,11 @@
 package Hospital.db.pojos;
 
 import java.io.Serializable;
+
 import java.util.*;
+import java.sql.Date;
+
+
 
 public class Operation implements Serializable {
 
@@ -18,6 +22,8 @@ public class Operation implements Serializable {
 	
 	
 	//CONSTRUCTORS
+	
+	
 	public Operation(Integer id, String type, Date date, List<Surgeon> surgeons, List<Nurse> nurses) {
 		super();
 		this.id = id;
@@ -25,6 +31,26 @@ public class Operation implements Serializable {
 		this.date = date;
 		this.surgeons = surgeons;
 		this.nurses = nurses;
+	}
+
+	//Empty constructor
+	public Operation() {
+		super();
+	}
+
+	//Constructor without the lists
+	public Operation(Integer id, String type, Date date) {
+		super();
+		this.id = id;
+		this.type = type;
+		this.date = date;
+	}
+
+	//Constructor without the id and the lists
+	public Operation(String type, Date date) {
+		super();
+		this.type = type;
+		this.date = date;
 	}
 
 	//TOSTRING METHOD
@@ -118,7 +144,33 @@ public class Operation implements Serializable {
 	
 	
 	
+	// Added for convenience
+	public void addSurgeon(Surgeon surgeon) {
+		if (!surgeons.contains(surgeon)) {
+			surgeons.add(surgeon);
+		}
+	}
 	
+	// Added for convenience
+	public void removeSurgeon(Surgeon surgeon) {
+		if (surgeons.contains(surgeon)) {
+			surgeons.remove(surgeon);
+		}
+	}
+	
+	// Added for convenience
+	public void addNurse(Nurse nurse) {
+		if (!nurses.contains(nurse)) {
+			nurses.add(nurse);
+		}
+	}
+	
+	// Added for convenience
+	public void removeNurse(Nurse nurse) {
+		if (nurses.contains(nurse)) {
+			nurses.remove(nurse);
+		}
+	}
 	
 	
 
