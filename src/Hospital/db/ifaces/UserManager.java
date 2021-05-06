@@ -14,7 +14,7 @@ public interface UserManager {
 	public void disconnect();
 	public void newUser(User u);
 	public void newRole(Role r);
-	public javax.management.relation.Role getRole(int id);
+	public Role getRole(int id);
 	public List<Role> getRoles();
 	public User checkPassword(String email, String password);
 }

@@ -8,7 +8,7 @@ import Hospital.db.pojos.Patient;
 import Hospital.db.pojos.Surgeon;
 
 
-public interface DBAdmin {
+public interface DBManager {
 	
 	// Connects with the database and, if needed, performs necessary setup
 		public void connect();

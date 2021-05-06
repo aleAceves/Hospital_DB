@@ -10,14 +10,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import Hospital.db.ifaces.DBAdmin;
+import Hospital.db.ifaces.DBManager;
 import Hospital.db.pojos.Nurse;
 import Hospital.db.pojos.Operation;
 import Hospital.db.pojos.Patient;
 import Hospital.db.pojos.Surgeon;
 
 
-public class JDBCManager implements DBAdmin{
+public class JDBCManager implements DBManager{
 	
 	private Connection c;
 	

@@ -14,9 +14,10 @@ import Hospital.db.pojos.users.Role;
 import Hospital.db.pojos.users.User;
 
 public class JPAUserManager implements UserManager {
-	
+
 	private EntityManager em;
 
+	@Override
 	public void connect() {
 		em = Persistence.createEntityManagerFactory("user-provider").createEntityManager();
 		em.getTransaction().begin();
@@ -29,40 +30,40 @@ public class JPAUserManager implements UserManager {
 		}
 	}
 
-	
+	@Override
 	public void disconnect() {
 		em.close();
 	}
 
-	
+	@Override
 	public void newUser(User u) {
 		em.getTransaction().begin();
 		em.persist(u);
 		em.getTransaction().commit();
 	}
 
-	
+	@Override
 	public void newRole(Role r) {
 		em.getTransaction().begin();
 		em.persist(r);
 		em.getTransaction().commit();
 	}
 
-	
-	public javax.management.relation.Role getRole(int id) {
+	@Override
+	public Role getRole(int id) {
 		Query q = em.createNativeQuery("SELECT * FROM roles WHERE id = ?", Role.class);
 		q.setParameter(1, id);
-		return (javax.management.relation.Role) q.getSingleResult();
+		return (Role) q.getSingleResult();
 
 	}
 
-	
+	@Override
 	public List<Role> getRoles() {
 		Query q = em.createNativeQuery("SELECT * FROM roles", Role.class);
 		return (List<Role>) q.getResultList();
 	}
 
-	
+	@Override
 	public User checkPassword(String email, String password) {
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
@@ -79,6 +80,5 @@ public class JPAUserManager implements UserManager {
 		}
 		return null;
 	}
-
 
 }

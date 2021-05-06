@@ -2,6 +2,7 @@ package Hospital.db.ui;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -13,11 +14,11 @@ import javax.management.relation.Role;
 import Hospital.db.jpa.JPAUserManager;
 import Hospital.db.jdbc.JDBCManager;
 import Hospital.db.pojos.users.User;
+import Hospital.db.pojos.users.Role;
 import Hospital.db.ifaces.UserManager;
-import Hospital.db.ifaces.DBAdmin;
+import Hospital.db.ifaces.DBManager;
 import Hospital.db.pojos.Nurse;
-//import Hospital.db.pojos.users.Role;
-//import Hospital.db.pojos.users.User;
+
 import Hospital.db.pojos.Surgeon;
 import Hospital.db.pojos.Patient;
 
@@ -27,7 +28,7 @@ import Hospital.db.pojos.Patient;
 public class Menu {
 
 	
-	private static DBAdmin dbman = new Hospital.db.jdbc.JDBCManager();
+	private static DBManager dbman = new Hospital.db.jdbc.JDBCManager();
 	private static UserManager userman = new JPAUserManager();
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -93,9 +94,9 @@ public class Menu {
 		if (user == null) {
 			System.out.println("Wrong email or password");
 			return;
-		} else if (user.getRole().getRoleName().equalsIgnoreCase("admin")) {
+		} else if (user.getRole().getName().equalsIgnoreCase("admin")) {
 			adminMenu();
-		} else if (user.getRole().getRoleName().equalsIgnoreCase("user")) {
+		} else if (user.getRole().getName().equalsIgnoreCase("user")) {
 			//userMenu();
 		}
 		// Check the type of the user and redirect her to the proper menu

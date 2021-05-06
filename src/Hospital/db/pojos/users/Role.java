@@ -13,10 +13,12 @@ import javax.persistence.*;
 @Table(name="roles")
 
 public class Role implements Serializable  {
+
 	
-	
-private static final long serialVersionUID = -6005024327012977944L;
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7320843854857339514L;
 	@Id
 	@GeneratedValue(generator="roles")
 	@TableGenerator(name="roles", table="sqlite_sequence",
@@ -25,6 +27,7 @@ private static final long serialVersionUID = -6005024327012977944L;
 	private String name;
 	@OneToMany(mappedBy="role")
 	private List<User> users;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -53,6 +56,8 @@ private static final long serialVersionUID = -6005024327012977944L;
 		this.name = name;
 		this.users = new ArrayList<User>();
 	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -76,6 +81,7 @@ private static final long serialVersionUID = -6005024327012977944L;
 			return false;
 		return true;
 	}
+	
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", name=" + name + "]";
