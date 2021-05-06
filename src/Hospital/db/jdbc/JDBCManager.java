@@ -3,7 +3,6 @@ package Hospital.db.jdbc;
 import java.sql.SQLException;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,23 +10,28 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import Hospital.db.ifaces.DBAdmin;
 import Hospital.db.pojos.Nurse;
 import Hospital.db.pojos.Operation;
+import Hospital.db.pojos.Patient;
 import Hospital.db.pojos.Surgeon;
 
-public class JDBCManager {
+
+public class JDBCManager implements DBAdmin{
 	
 	private Connection c;
 	
 	public void connect() {
 	
 	try {
-		Class.forName("org.sqlite.JBDC");
 		
+		// We open the database connection
+		Class.forName("org.sqlite.JBDC");
 		c= DriverManager.getConnection("jbdc:sqlite:./db/Hospital.db");
 		c.createStatement().execute("PRAGMA foreign_keys=ON");
 		System.out.println("Database connection opened");
 		this.createTables();
+		
 		} catch(SQLException ex) {
 			System.out.print("Error in the connection");
 			ex.printStackTrace();
@@ -39,7 +43,7 @@ public class JDBCManager {
 	}
 	
 	
-	
+	// CREATING THE TABLES
 	private void createTables() {
 		
 		try{
@@ -89,7 +93,7 @@ public class JDBCManager {
 		
 		stm1.executeUpdate(s1);
 		
-		// Create table jobs_people
+		// Create table operations_surgeons
 		s1 = "CREATE TABLE operations_surgeons "
 				+ "(operation_id INTEGER REFERENCES operation(id), "
 				+ "surgeon_id INTEGER REFERENCES surgeons(id), " 
@@ -109,7 +113,9 @@ public class JDBCManager {
 	
 	
 	
-	public void disconnect () {
+	
+	// Close the database connection
+	public void disconnect() {
 		try {
 			c.close();	
 		} catch(SQLException e) {
@@ -119,31 +125,67 @@ public class JDBCManager {
 	}
 	
 	
-	public void addSurgeons (Surgeon s) {
+	// ADD SURGEONS
+	
+	public void addSurgeon (Surgeon s) {
 		try {
 			// Id is chosen by the database
-			Statement stmt = c.createStatement();
-			String sql = "INSERT INTO surgeons (name) VALUES ('" + s.getName() + "')";
-			stmt.executeUpdate(sql);
-			stmt.close();
+			//Statement stmt = c.createStatement();
+			String sql = "INSERT INTO surgeons (name,surname, speciality) VALUES (?,?,?)";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1, s.getName());
+			prep.setString(2, s.getSurname());
+			prep.setString(3, s.getSpeciality());
+			//we miss the list of operations
+			
+			prep.executeUpdate(sql);
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
 	
-	public void addNurses (Nurse n) {
+	//REVISAR EL CONSTRUCTOR EN POJOS SIN LA LIST OF OPERATIONS
+		public Surgeon getSurgeon (int id) {
+			try {
+				String sql = "SELECT * FROM surgeons WHERE id = ?";
+				PreparedStatement prep = c.prepareStatement(sql);
+				prep.setInt(1, id);
+				ResultSet rs = prep.executeQuery();
+				if (rs.next()) {
+					String surgeonName = rs.getString("name");
+					String surgeonSurname = rs.getString("surname");
+					String surgeonSpeciality = rs.getString("speciality");
+					return new Surgeon (id, surgeonName, surgeonSurname, surgeonSpeciality);
+				}
+				rs.close();
+				prep.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+	
+	// ADD NURSES
+	public void addNurse (Nurse n) {
 		try {
 			// Id is chosen by the database
-			Statement stmt = c.createStatement();
-			String sql = "INSERT INTO nurses (name) VALUES ('" + n.getName() + "')";
-			stmt.executeUpdate(sql);
-			stmt.close();
+			//Statement stmt = c.createStatement();
+			String sql = "INSERT INTO nurses (name, surname) VALUES (?,?)";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1, n.getName());
+			prep.setString(2, n.getSurname());
+			prep.executeUpdate(sql);
+			prep.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 	}
+	
+	
 	
 	public Nurse getNurse (int id) {
 		try {
@@ -164,18 +206,39 @@ public class JDBCManager {
 		return null;
 	}
 	
-	//REVISAR EL CONSTRUCTOR EN POJOS SIN LA LIST OF OPERATIONS
-	public Surgeon getSurgeon (int id) {
+	// ADD PATIENT
+	public void addPatient (Patient p) {
 		try {
-			String sql = "SELECT * FROM surgeons WHERE id = ?";
+			// Id is chosen by the database
+			//Statement stmt = c.createStatement();
+			String sql = "INSERT INTO patients (name, surname, address, email) VALUES(?,?,?,?)";
+			PreparedStatement prep = c.prepareStatement(sql);
+			prep.setString(1, p.getName());
+			prep.setString(2, p.getSurname());
+			prep.setString(3, p.getAddress());
+			prep.setString(4, p.getEmail());
+			prep.executeUpdate(sql);
+			prep.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	
+
+	public Patient getPatient (int id) {
+		try {
+			String sql = "SELECT * FROM patients WHERE id = ?";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setInt(1, id);
 			ResultSet rs = prep.executeQuery();
 			if (rs.next()) {
-				String surgeonName = rs.getString("name");
-				String surgeonSurname = rs.getString("surname");
-				String surgeonSpeciality = rs.getString("speciality");
-				return new Surgeon (id, surgeonName, surgeonSurname, surgeonSpeciality);
+				String patientName = rs.getString("name");
+				String patientSurname = rs.getString("surname");
+				String patientAddress = rs.getString("address");
+				String patientEmail = rs.getString("email");
+				return new Patient (id, patientName, patientSurname, patientAddress, patientEmail);
 			}
 			rs.close();
 			prep.close();
@@ -185,7 +248,12 @@ public class JDBCManager {
 		return null;
 	}
 	
-	public List<Surgeon> searchSurgeonsByName(String name) {
+	
+	
+
+	// SEARCHH SURGEON BY NAME
+	@Override
+	public List<Surgeon> searchSurgeonByName(String name) {
 		List<Surgeon> surgeons = new ArrayList<Surgeon>();
 		try {
 			String sql = "SELECT * FROM surgeons WHERE name LIKE ?";
@@ -207,6 +275,56 @@ public class JDBCManager {
 			e.printStackTrace();
 		}
 		return surgeons;
+	}
+	
+	// SEARCH NURSE BY NAME
+	public List<Nurse> searchNurseByName(String name) {
+		List<Nurse> nurses = new ArrayList<Nurse>();
+		try {
+			String sql = "SELECT * FROM nurses WHERE name LIKE ?";
+			PreparedStatement stmt = c.prepareStatement(sql);
+			stmt.setString(1, "%" + name + "%");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) { // true: there is another result and I have advanced to it
+								// false: there are no more results
+				int id = rs.getInt("id");
+				String nurseName = rs.getString("name");
+				String nurseSurname = rs.getString("surname");
+				Nurse nurse = new Nurse (id, nurseName, nurseSurname);
+				nurses.add(nurse);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return nurses;
+	}
+	
+	// SEARCH PATIENT BY NAME
+	public List<Patient> searchPatientByName(String name) {
+		List<Patient> patients = new ArrayList<Patient>();
+		try {
+			String sql = "SELECT * FROM patients WHERE name LIKE ?";
+			PreparedStatement stmt = c.prepareStatement(sql);
+			stmt.setString(1, "%" + name + "%");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) { // true: there is another result and I have advanced to it
+								// false: there are no more results
+				int id = rs.getInt("id");
+				String patientName = rs.getString("name");
+				String patientSurname = rs.getString("surname");
+				String patientAddress = rs.getString("address");
+				String patientEmail = rs.getString("email");
+				Patient patient = new Patient (id, patientName, patientSurname,patientAddress,patientEmail);
+				patients.add(patient);
+			}
+			rs.close();
+			stmt.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return patients;
 	}
 	
 	
@@ -280,6 +398,7 @@ public class JDBCManager {
 		return surgeons;
 	}
 	
+	// ADD SURGEON TO OPERATION
 	public void addSurgeonsToOperation(Surgeon s, Operation o) {
 		try {
 			String sql = "INSERT INTO operations_surgeons (operation_id, surgeon_id) VALUES (?,?)";
@@ -293,6 +412,7 @@ public class JDBCManager {
 		}
 	}
 	
+	// DELETE SURGEON FROM OPERATION
 	public void deleteSurgeonsFromOperation(int surgeonId, int operationId) {
 		try {
 			String sql = "DELETE FROM operations_surgeons WHERE operation_id = ? AND surgeon_id = ?";
@@ -305,6 +425,9 @@ public class JDBCManager {
 			e.printStackTrace();
 		}
 	}
+
+
+	
 	
 	
 }

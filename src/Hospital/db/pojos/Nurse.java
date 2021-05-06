@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.*;
 
 
+
+
 public class Nurse implements Serializable{
 
 	/**
@@ -23,6 +25,13 @@ public class Nurse implements Serializable{
 		this.name = name;
 		this.surname = surname;
 		this.operations = operations;
+	}
+	
+	// Constructor created because it's used in the application
+	public Nurse(String name, String surname) {
+		super();
+		this.name = name;
+		this.surname=surname;
 	}
 	
 	
