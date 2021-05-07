@@ -15,6 +15,8 @@ public interface DBManager {
 		// Closes the connection with the database
 		// To be called when the application ends
 		public void disconnect();
+
+		public void createTables();
 		
 		// Add a new surgeon
 		public void addSurgeon(Surgeon s);

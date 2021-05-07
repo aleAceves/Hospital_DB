@@ -1,7 +1,7 @@
 package Hospital.db.pojos;
 
 import java.io.Serializable;
-import java.util.*;
+
 
 public class Operating_room implements Serializable{
 

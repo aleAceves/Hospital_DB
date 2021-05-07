@@ -21,34 +21,39 @@ public class JDBCManager implements DBManager{
 	
 	private Connection c;
 	
-	public void connect() {
-	
-	try {
-		
-		// We open the database connection
-		Class.forName("org.sqlite.JBDC");
-		c= DriverManager.getConnection("jbdc:sqlite:./db/Hospital.db");
-		c.createStatement().execute("PRAGMA foreign_keys=ON");
-		System.out.println("Database connection opened");
-		this.createTables();
-		
-		} catch(SQLException ex) {
-			System.out.print("Error in the connection");
-			ex.printStackTrace();
-		} catch(Exception ex) {
-			System.out.print("General error");
-			ex.printStackTrace();
-		}
-	
+	public JDBCManager() {
+		super();
 	}
 	
 	
+
+@Override
+	public void connect() {
+			try {
+				// Open database connection
+				Class.forName("org.sqlite.JDBC");
+				c = DriverManager.getConnection("jdbc:sqlite:./Hospital_DB.db");
+				c.createStatement().execute("PRAGMA foreign_keys=ON");
+				System.out.println("Database connection opened.");
+				this.createTables();
+			} catch (SQLException sqlE) {
+				System.out.println("There was a database exception.");
+				sqlE.printStackTrace();
+			} catch (Exception e) {
+				System.out.println("There was a general exception.");
+				e.printStackTrace();
+			}
+		}
+	
+	
 	// CREATING THE TABLES
-	private void createTables() {
+	public void createTables() {
+		
+		Statement stm1;
 		
 		try{
 		
-		Statement stm1= c.createStatement();
+		stm1= c.createStatement();
 		
 		String s1= "CREATE TABLE surgeons "
 				+ "(id   INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -110,11 +115,12 @@ public class JDBCManager implements DBManager{
 			ex.printStackTrace();
 		}
 	}
-	
+
 	
 	
 	
 	// Close the database connection
+	@Override
 	public void disconnect() {
 		try {
 			c.close();	
