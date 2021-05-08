@@ -1,6 +1,7 @@
 package Hospital.db.jpa;
 
 import java.security.MessageDigest;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import javax.persistence.Query;
 import Hospital.db.ifaces.UserManager;
 import Hospital.db.pojos.users.Role;
 import Hospital.db.pojos.users.User;
+
 
 public class JPAUserManager implements UserManager {
 

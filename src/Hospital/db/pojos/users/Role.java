@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
+import jobseeker.db.pojos.users.User;
+
 
 
 @Entity
@@ -26,10 +28,11 @@ public class Role implements Serializable {
 
 	@Id
 	@GeneratedValue(generator = "roles")
-	@TableGenerator(name = "roles", table = "sqlite_sequence", pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "roles")
+	@TableGenerator(name = "roles", table = "sqlite_sequence", 	
+		pkColumnName = "name", valueColumnName = "seq", pkColumnValue = "roles")
 	private Integer id;
-	private String role;
-	@OneToMany(mappedBy = "role")
+	private String name;
+	@OneToMany(mappedBy="role")
 	private List<User> users;
 
 	public Role() {
@@ -51,12 +54,12 @@ public class Role implements Serializable {
 		this.id = id;
 	}
 
-	public String getRole() {
-		return role;
+	public String getName() {
+		return name;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public List<User> getUsers() {

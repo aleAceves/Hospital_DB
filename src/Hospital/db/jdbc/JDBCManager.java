@@ -137,7 +137,7 @@ public class JDBCManager implements DBManager{
 		try {
 			// Id is chosen by the database
 			//Statement stmt = c.createStatement();
-			String sql = "INSERT INTO surgeons (name,surname, speciality) VALUES (?,?,?)";
+			String sql = "INSERT INTO surgeons (name,surname, speciality) VALUES (?, ?, ?)";
 			PreparedStatement prep = c.prepareStatement(sql);
 			prep.setString(1, s.getName());
 			prep.setString(2, s.getSurname());

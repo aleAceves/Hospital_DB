@@ -54,7 +54,13 @@ public class Surgeon implements Serializable{
 		this.speciality = speciality;
 	}
 
-
+	//Constructor without the id and operations
+	public Surgeon(String name, String surname, String speciality) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.speciality = speciality;
+	}
 
 	//TO STRING METHOD
 	@Override

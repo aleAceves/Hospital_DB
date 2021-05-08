@@ -16,7 +16,7 @@ public class Patient implements Serializable {
 	private String address;
 	private String email;
 	
-	//COSNTRUCTORS
+	//CONSTRUCTORS
 	public Patient(Integer id, String name, String surname, String address, String email) {
 		super();
 		this.id = id;
@@ -26,6 +26,18 @@ public class Patient implements Serializable {
 		this.email = email;
 	}
 	
+	
+	//Constructor without the id
+	public Patient(String name, String surname, String address, String email) {
+		super();
+		this.name = name;
+		this.surname = surname;
+		this.address = address;
+		this.email = email;
+	}
+
+
+
 	//TOSTRING METHOD
 	@Override
 	public String toString() {
