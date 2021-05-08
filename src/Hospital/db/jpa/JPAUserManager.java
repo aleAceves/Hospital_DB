@@ -81,4 +81,24 @@ public class JPAUserManager implements UserManager {
 		return null;
 	}
 
+	@Override
+	public void createUser(User user) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void createRole(Role role) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Role getRoleByName(String roleName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
+
+
