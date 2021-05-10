@@ -16,7 +16,7 @@ import Hospital.db.pojos.Patient;
 import Hospital.db.pojos.Surgeon;
 import Hospital.db.pojos.users.Role;
 import Hospital.db.pojos.users.User;
-import jobseeker.db.pojos.Person;
+
 
 
 
@@ -213,18 +213,21 @@ public class Menu {
 		Patient patient= new Patient(name, surname, address, email);
 		dbManager.addPatient(patient);
 	}
+
 		
 			while (true) {
 				int option = 4;
 				boolean correctOption = false;
 				do {
 					// starts program
-					// THE DOCTOR SHOULD BE CREATED BEFORE CREATING THE HEMOGRAM
+					// CREEATE AN ANDMIN BEFORE
 					System.out.println("\nWho are you?");
-					System.out.println("1. Analyzer");
-					System.out.println("2. Doctor");
-					System.out.println("3. Patient");
-					System.out.println("0. Exit");
+					System.out.println("1. Administrator");
+					System.out.println("2. Surgeon");
+					System.out.println("3. Nurse");
+					System.out.println("4. Patient");
+						
+					System.out.println("5. Exit");
 					System.out.print("Select an option: ");
 
 					try {
@@ -237,15 +240,21 @@ public class Menu {
 
 				switch (option) {
 				case 1:
-					//MenuAnalyzer.analyzerMenu();
+					//adminMenu();
+					//we go to the menu for the administrator
 					break;
 				case 2:
-					//MenuDoctor.doctorMenu();
+					//MenuSurgeon.patientMenu();
+					//wee go to the menu for the surgeon
 					break;
 				case 3:
-					//MenuPatient.patientMenu();
+					//MenuNurse.patientMenu();
+					//go to the menu for the nurse
 					break;
-				case 0:
+				case 4:
+					//we go to the menu for the patient
+					//MenuPatient.patientMenu();
+				case 5:
 					dbManager.disconnect();
 					usersManager.disconnect();
 					System.out.println("Thank you for using our program! Have a good day :D");

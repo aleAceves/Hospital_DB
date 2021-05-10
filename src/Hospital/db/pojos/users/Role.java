@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 
-import jobseeker.db.pojos.users.User;
+import Hospital.db.pojos.users.User;
 
 
 

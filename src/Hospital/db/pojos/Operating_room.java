@@ -2,10 +2,9 @@ package Hospital.db.pojos;
 
 import java.io.Serializable;
 
-<<<<<<< HEAD
+
 import java.util.*;
-=======
->>>>>>> branch 'master' of https://github.com/aleAceves/Hospital_DB
+
 
 public class Operating_room implements Serializable{
 
