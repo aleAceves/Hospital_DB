@@ -21,19 +21,96 @@ import Hospital.db.pojos.users.User;
 
 
 
+
 public class Menu {
 
+	//add the manager for each user that we have, and create them ADD THIS!!!!
 	
 	public static DBManager dbManager;
 	public static UserManager usersManager;
+	public static AdministratorManager administratorManager;
+	
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-	//FOR THE DATES
-	private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	
 	public static void main(String args[]) throws Exception{
+		//creeate and connect with the database
+		//HEMOGRAM AQUI TIENE ALGO DE SQL: PONER LUEGO
 		dbManager.connect();
 		usersManager.connect();
+		
+		administratorManager = dbManager.getAdministratorManager();
+		
+		// Create tables
+		dbManager.createTables();
+		usersManager = new JPAUserManager();
+		usersManager.connect();
+		Role role = new Role("surgeon");
+		usersManager.createRole(role);
+		Role role2 = new Role("nurse");
+		usersManager.createRole(role2);
+		Role role3 = new Role("patient");
+		usersManager.createRole(role3);
+		Role role4 = new Role("administrator");
+		usersManager.createRole(role4);
+		
+		//the while(true), to show the menu
+		while (true) {
+			int option = 4;
+			boolean correctOption = false;
+			do {
+				// starts program
+				// CREEATE AN ADMIN BEFORE, by default, in order to have just one administrator
+				System.out.println("\nWho are you?");
+				System.out.println("1. Administrator");
+				System.out.println("2. Surgeon");
+				System.out.println("3. Nurse");
+				System.out.println("4. Patient");
+					
+				System.out.println("5. Exit");
+				System.out.print("Select an option: ");
+
+				try {
+					option = Integer.parseInt(reader.readLine());
+					correctOption = true;
+				} catch (NumberFormatException e) {
+					System.out.println("Insert an integer please;");
+				}
+			} while (correctOption == false);
+
+			switch (option) {
+			case 1:
+				AdministratorMenu.adminMenu();
+				//we go to the menu for the administrator
+				break;
+			case 2:
+				//MenuSurgeon.patientMenu();
+				//wee go to the menu for the surgeon
+				break;
+			case 3:
+				//MenuNurse.patientMenu();
+				//go to the menu for the nurse
+				break;
+			case 4:
+				//we go to the menu for the patient
+				//MenuPatient.patientMenu();
+			case 5:
+				dbManager.disconnect();
+				usersManager.disconnect();
+				System.out.println("Thank you for using our program!");
+				System.exit(0);
+				break;
+			default:
+				break;
+			}
+		}
+		
+
+
+
+
+	
+		
 		do {
 		System.out.println("Choose an option:");
 		System.out.println("1. Register");
@@ -215,58 +292,5 @@ public class Menu {
 	}
 
 		
-			while (true) {
-				int option = 4;
-				boolean correctOption = false;
-				do {
-					// starts program
-					// CREEATE AN ANDMIN BEFORE
-					System.out.println("\nWho are you?");
-					System.out.println("1. Administrator");
-					System.out.println("2. Surgeon");
-					System.out.println("3. Nurse");
-					System.out.println("4. Patient");
-						
-					System.out.println("5. Exit");
-					System.out.print("Select an option: ");
-
-					try {
-						option = Integer.parseInt(reader.readLine());
-						correctOption = true;
-					} catch (NumberFormatException e) {
-						System.out.println("Insert an integer please;");
-					}
-				} while (correctOption == false);
-
-				switch (option) {
-				case 1:
-					//adminMenu();
-					//we go to the menu for the administrator
-					break;
-				case 2:
-					//MenuSurgeon.patientMenu();
-					//wee go to the menu for the surgeon
-					break;
-				case 3:
-					//MenuNurse.patientMenu();
-					//go to the menu for the nurse
-					break;
-				case 4:
-					//we go to the menu for the patient
-					//MenuPatient.patientMenu();
-				case 5:
-					dbManager.disconnect();
-					usersManager.disconnect();
-					System.out.println("Thank you for using our program! Have a good day :D");
-					System.exit(0);
-					break;
-				default:
-					break;
-				}
-			}
 			
-
-	
-	}
-
 }

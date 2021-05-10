@@ -2,7 +2,6 @@ package Hospital.db.ifaces;
 
 import java.util.List;
 
-
 import Hospital.db.pojos.Nurse;
 import Hospital.db.pojos.Patient;
 import Hospital.db.pojos.Surgeon;
@@ -41,6 +40,8 @@ public interface DBManager {
 		// Search for a patient by name
 		// If name is empty or null, return all jobs
 		public List<Patient> searchPatientByName(String name);
+		
+		public AdministratorManager getAdministratorManager();
 		
 		
 		// FALTARIAN COSAS!!!!!!
