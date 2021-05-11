@@ -42,6 +42,8 @@ public interface DBManager {
 		public List<Patient> searchPatientByName(String name);
 		
 		public AdministratorManager getAdministratorManager();
+		public NurseManager getNurseManager();
+		public PatientManager getPatientManager();
 		
 		
 		// FALTARIAN COSAS!!!!!!

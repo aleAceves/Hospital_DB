@@ -10,7 +10,10 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import Hospital.db.ifaces.AdministratorManager;
 import Hospital.db.ifaces.DBManager;
+import Hospital.db.ifaces.NurseManager;
+import Hospital.db.ifaces.PatientManager;
 import Hospital.db.pojos.Nurse;
 import Hospital.db.pojos.Operation;
 import Hospital.db.pojos.Patient;
@@ -430,6 +433,30 @@ public class JDBCManager implements DBManager{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+
+
+	@Override
+	public AdministratorManager getAdministratorManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public NurseManager getNurseManager() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+
+	@Override
+	public PatientManager getPatientManager() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

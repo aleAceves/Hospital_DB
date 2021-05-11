@@ -29,6 +29,7 @@ public class Menu {
 	public static DBManager dbManager;
 	public static UserManager usersManager;
 	public static AdministratorManager administratorManager;
+	public static PatientManager patientManager;
 	
 	private static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -40,6 +41,7 @@ public class Menu {
 		usersManager.connect();
 		
 		administratorManager = dbManager.getAdministratorManager();
+		patientManager = dbManager.getPatientManager();
 		
 		// Create tables
 		dbManager.createTables();
@@ -88,7 +90,7 @@ public class Menu {
 				//wee go to the menu for the surgeon
 				break;
 			case 3:
-				//MenuNurse.patientMenu();
+				NurseMenu.nurseMenu();
 				//go to the menu for the nurse
 				break;
 			case 4:
@@ -179,6 +181,7 @@ public class Menu {
 			usersManager.newUser(user);
 		}
 	
+	/*
 	private static void login() throws Exception {
 		// Ask the user for an email
 		System.out.println("Please, write your email address:");
@@ -201,7 +204,9 @@ public class Menu {
 		}
 		}
 		// Check the type of the user and redirect her to the proper menu
-
+*/
+	
+	/*
 	
 
 	private static void adminMenu() throws Exception {
@@ -254,6 +259,8 @@ public class Menu {
 			}
 		} while (true);
 	}
+	
+	*/
 	
 	private static void addSurgeon() throws Exception {
 		System.out.println("Please, input the person info:");
