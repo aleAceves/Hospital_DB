@@ -261,42 +261,7 @@ public class Menu {
 	}
 	
 	*/
-	
-	private static void addSurgeon() throws Exception {
-		System.out.println("Please, input the person info:");
-		System.out.print("Name: ");
-		String name = reader.readLine();
-		System.out.print("Surname: ");
-		String surname = reader.readLine();
-		System.out.print("Speciality: ");
-		String speciality = reader.readLine();
-		Surgeon surgeon= new Surgeon(name, surname, speciality);
-		dbManager.addSurgeon(surgeon);
-	}
-	
-	private static void addNurse() throws Exception {
-		System.out.println("Please, input the person info:");
-		System.out.print("Name: ");
-		String name = reader.readLine();
-		System.out.print("Surname: ");
-		String surname = reader.readLine();
-		Nurse nurse= new Nurse(name, surname);
-		dbManager.addNurse(nurse);
-	}
-	
-	private static void addPatient() throws Exception {
-		System.out.println("Please, input the person info:");
-		System.out.print("Name: ");
-		String name = reader.readLine();
-		System.out.print("Surname: ");
-		String surname= reader.readLine();
-		System.out.print("Address: ");
-		String address= reader.readLine();
-		System.out.print("Email: ");
-		String email = reader.readLine();
-		Patient patient= new Patient(name, surname, address, email);
-		dbManager.addPatient(patient);
-	}
+
 
 		
 			

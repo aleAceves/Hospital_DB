@@ -1,6 +1,7 @@
 package Hospital.db.ui;
 
 import java.io.BufferedReader;
+
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -80,9 +81,10 @@ public class PatientMenu {
 				boolean correctOption = false;
 				do {
 					System.out.println("\n PATIENT \n");
-					System.out.println("1. List all operations");
-					System.out.println("2. Generate XML");
-					System.out.println("3. Go back");
+					System.out.println("1. Check schedule");
+					System.out.println("2. Check rooms");
+					System.out.println("3. Generate XML");
+					System.out.println("4. Go back");
 					System.out.print("Select an option: ");
 
 					try {

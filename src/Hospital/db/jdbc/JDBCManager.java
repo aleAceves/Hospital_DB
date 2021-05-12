@@ -260,7 +260,7 @@ public class JDBCManager implements DBManager{
 	
 	
 
-	// SEARCHH SURGEON BY NAME
+	// SEARCH SURGEON BY NAME
 	@Override
 	public List<Surgeon> searchSurgeonByName(String name) {
 		List<Surgeon> surgeons = new ArrayList<Surgeon>();

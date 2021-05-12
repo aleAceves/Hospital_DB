@@ -63,9 +63,10 @@ public class NurseMenu {
 					System.out.println("\n NURSE \n");
 					
 					//ADD OUR OPTIONS FOR NURSES
-					System.out.println("1. List all operations");
-					System.out.println("2. Generate XML");
-					System.out.println("3. Go back");
+					System.out.println("1. Check schedule");
+					System.out.println("2. Check rooms");
+					System.out.println("3. Generate XML");
+					System.out.println("4. Go back");
 					System.out.print("Select an option: ");
 
 					try {
